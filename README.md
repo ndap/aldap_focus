@@ -70,17 +70,6 @@ flutter pub get
 flutter run
 ```
 
-### Platform Support
-
-| Platform | Status |
-|----------|--------|
-| 🤖 Android | ✅ Supported |
-| 🍎 iOS | ✅ Supported |
-| 🖥️ Windows | ✅ Supported |
-| 🍎 macOS | ✅ Supported |
-| 🐧 Linux | ✅ Supported |
-| 🌐 Web | ✅ Supported |
-
 ## 📁 Project Structure
 
 ```
