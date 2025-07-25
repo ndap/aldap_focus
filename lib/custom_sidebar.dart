@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'learn_flutter/home.dart';
+import 'main.dart';
 
 class CustomSidebar extends StatelessWidget {
   final VoidCallback onClose;
@@ -67,10 +69,7 @@ class CustomSidebar extends StatelessWidget {
                   const SizedBox(height: 8),
                   const Text(
                     'Pomodoro Timer & Study Planner',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
                 ],
               ),
@@ -83,52 +82,31 @@ class CustomSidebar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 16),
               children: [
                 _buildMenuItem(
-                  icon: Icons.timer_outlined,
-                  title: 'Timer',
-                  subtitle: 'Pomodoro Timer',
+                  icon: Icons.home_outlined,
+                  title: 'Home',
+                  subtitle: 'Halaman Utama',
                   onTap: () {
-                    onClose();
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PomodoroScreen(),
+                      ),
+                    );
                   },
                 ),
                 _buildMenuItem(
-                  icon: Icons.schedule_outlined,
-                  title: 'Schedule',
-                  subtitle: 'Weekly Study Plan',
+                  icon: Icons.school_outlined,
+                  title: 'Learn Flutter',
+                  subtitle: 'Belajar Flutter',
                   onTap: () {
-                    onClose();
-                  },
-                ),
-                _buildMenuItem(
-                  icon: Icons.analytics_outlined,
-                  title: 'Statistics',
-                  subtitle: 'Study Analytics',
-                  onTap: () {
-                    onClose();
-                  },
-                ),
-                _buildMenuItem(
-                  icon: Icons.settings_outlined,
-                  title: 'Settings',
-                  subtitle: 'App Preferences',
-                  onTap: () {
-                    onClose();
-                  },
-                ),
-                const Divider(height: 32),
-                _buildMenuItem(
-                  icon: Icons.music_note_outlined,
-                  title: 'Background Music',
-                  subtitle: 'Audio Settings',
-                  onTap: () {
-                    onClose();
-                  },
-                ),
-                _buildMenuItem(
-                  icon: Icons.notifications_outlined,
-                  title: 'Notifications',
-                  subtitle: 'Alert Settings',
-                  onTap: () {
-                    onClose();
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LearnFlutterHome(),
+                      ),
+                    );
                   },
                 ),
               ],
@@ -170,10 +148,7 @@ class CustomSidebar extends StatelessWidget {
                           ),
                           Text(
                             'Focus & Productivity',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                            style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ],
                       ),
@@ -202,30 +177,18 @@ class CustomSidebar extends StatelessWidget {
           color: const Color(0xFFd2604f).withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(
-          icon,
-          color: const Color(0xFFd2604f),
-          size: 20,
-        ),
+        child: Icon(icon, color: const Color(0xFFd2604f), size: 20),
       ),
       title: Text(
         title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
       subtitle: Text(
         subtitle,
-        style: TextStyle(
-          color: Colors.grey[600],
-          fontSize: 12,
-        ),
+        style: TextStyle(color: Colors.grey[600], fontSize: 12),
       ),
       onTap: onTap,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       hoverColor: const Color(0xFFd2604f).withOpacity(0.05),
     );
   }
