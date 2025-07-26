@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'learn_flutter/home.dart';
-import 'main.dart';
 
 class CustomSidebar extends StatelessWidget {
   final VoidCallback onClose;
@@ -86,12 +85,11 @@ class CustomSidebar extends StatelessWidget {
                   title: 'Home',
                   subtitle: 'Halaman Utama',
                   onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(
+                    onClose();
+                    Navigator.pushNamedAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const PomodoroScreen(),
-                      ),
+                      '/',
+                      (route) => false,
                     );
                   },
                 ),
@@ -100,12 +98,24 @@ class CustomSidebar extends StatelessWidget {
                   title: 'Learn Flutter',
                   subtitle: 'Belajar Flutter',
                   onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(
+                    onClose();
+                    Navigator.pushNamedAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const LearnFlutterHome(),
-                      ),
+                      '/learn',
+                      (route) => false,
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.quiz_outlined,
+                  title: 'TKA',
+                  subtitle: 'Tes Kemampuan Akademik',
+                  onTap: () {
+                    onClose();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/tka',
+                      (route) => false,
                     );
                   },
                 ),

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'custom_sidebar.dart';
+import 'learn_flutter/home.dart';
+import 'learn_for_tka/home.dart';
 
 void main() {
   runApp(const PomodoroApp());
@@ -20,7 +22,12 @@ class PomodoroApp extends StatelessWidget {
         fontFamily: 'Roboto',
         useMaterial3: true,
       ),
-      home: const PomodoroScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const PomodoroScreen(),
+        '/learn': (context) => const LearnFlutterHome(),
+        '/tka': (context) => const LearnTKAHome(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -204,7 +211,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
         final isWorkComplete = _isBreak;
         final primaryColor = isWorkComplete
             ? const Color(0xFF4CAF50) // Green for work session complete
-            : const Color(0xFF2196F3); // Blue for break time over
+            : const Color(0xFFd2604f); // Brown theme for break time over
 
         return Dialog(
           shape: RoundedRectangleBorder(
@@ -322,7 +329,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
     }
     return _currentTime < 300
         ? const Color(0xFFFF5722)
-        : const Color(0xFF2196F3); // Modern red/blue
+        : const Color(0xFFd2604f); // Brown theme consistent with TKA page
   }
 
   @override
@@ -351,17 +358,17 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
                                     angle: _sidebarAnimationController.value * 0.3,
                                     child: IconButton(
                                       onPressed: () {
-                                        HapticFeedback.lightImpact();
-                                        setState(() {
-                                          _isSidebarOpen = true;
-                                        });
-                                        _sidebarAnimationController.forward();
-                                      },
-                                      icon: Icon(
-                                        _isSidebarOpen ? Icons.close : Icons.menu,
-                                        color: Colors.grey[800],
-                                        size: 28,
-                                      ),
+                        HapticFeedback.lightImpact();
+                        setState(() {
+                          _isSidebarOpen = true;
+                        });
+                        _sidebarAnimationController.forward();
+                      },
+                      icon: Icon(
+                        _isSidebarOpen ? Icons.close : Icons.menu,
+                        color: const Color(0xFFd2604f),
+                        size: 28,
+                      ),
                                     ),
                                   );
                                 },
@@ -437,12 +444,12 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF4CAF50).withOpacity(0.1),
+                            color: const Color(0xFFd2604f).withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(
                             Icons.check_circle,
-                            color: Color(0xFF4CAF50),
+                            color: Color(0xFFd2604f),
                             size: 20,
                           ),
                         ),
