@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'custom_sidebar.dart';
 import 'learn_flutter/home.dart';
 import 'learn_for_tka/home.dart';
@@ -56,39 +55,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
   final int _shortBreakDuration = 5 * 60;
   final int _longBreakDuration = 15 * 60;
 
-  // Audio players for background music
-  final AudioPlayer _backgroundMusicPlayer = AudioPlayer();
 
-  // Method to play background music
-  Future<void> _playBackgroundMusic() async {
-    try {
-      String musicFile;
-      if (_isBreak) {
-        // Choose music based on break type
-        musicFile = _getBreakDuration() == _longBreakDuration
-            ? 'sounds/long_break_music.mp3'
-            : 'sounds/break_music.mp3';
-      } else {
-        // Focus session music
-        musicFile = 'sounds/focus_music.mp3';
-      }
-
-      await _backgroundMusicPlayer.setReleaseMode(ReleaseMode.loop);
-      await _backgroundMusicPlayer.setVolume(0.3); // Set volume to 30%
-      await _backgroundMusicPlayer.play(AssetSource(musicFile));
-    } catch (e) {
-      // Background music not available - silently handle
-    }
-  }
-
-  // Method to stop background music
-  Future<void> _stopBackgroundMusic() async {
-    try {
-      await _backgroundMusicPlayer.stop();
-    } catch (e) {
-      // Error stopping background music - silently handle
-    }
-  }
 
   // Method to play notification sound
   Future<void> _playNotificationSound() async {
@@ -130,7 +97,6 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
   @override
   void dispose() {
     _timer?.cancel();
-    _backgroundMusicPlayer.dispose();
     _sidebarAnimationController.dispose();
     super.dispose();
   }
@@ -139,9 +105,6 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
     setState(() {
       _isRunning = true;
     });
-
-    // Start background music when timer starts
-    _playBackgroundMusic();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -159,9 +122,6 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
       _isRunning = false;
     });
     _timer?.cancel();
-
-    // Stop background music when timer is paused
-    _stopBackgroundMusic();
   }
 
   void _resetTimer() {
@@ -170,16 +130,10 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
       _currentTime = _isBreak ? _getBreakDuration() : _workDuration;
     });
     _timer?.cancel();
-
-    // Stop background music when timer is reset
-    _stopBackgroundMusic();
   }
 
   void _completeSession() {
     _timer?.cancel();
-
-    // Stop background music when session completes
-    _stopBackgroundMusic();
 
     setState(() {
       _isRunning = false;
