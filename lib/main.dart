@@ -607,28 +607,152 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
                     ),
                   ),
 
-                  // Weekly Schedule Table
+                  // Daily Schedule Table
                   Container(
                     margin: const EdgeInsets.only(bottom: 16),
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.grey[50],
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.grey[200]!),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '🗓️ 週間スケジュール',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFd2604f),
-                          ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFd2604f).withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.schedule,
+                                color: Color(0xFFd2604f),
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Daily Schedule (Wake Up: 05:40 AM)',
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        _buildWeeklyScheduleTable(),
+                      ],
+                    ),
+                  ),
+
+                  // No Gym Alternative Schedule
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.orange[50],
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.orange[200]!),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.orange.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.book,
+                                color: Colors.orange,
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'No Gym → More Study Time',
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 16),
-                        _buildWeeklyScheduleTable(),
+                        _buildNoGymSchedule(),
+                      ],
+                    ),
+                  ),
+
+                  // Weekend Schedule
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.green[50],
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.green[200]!),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.weekend,
+                                color: Colors.green,
+                                size: 20,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Weekend Schedule',
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        _buildWeekendSchedule(),
                       ],
                     ),
                   ),
@@ -763,46 +887,89 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
   Widget _buildWeeklyScheduleTable() {
     final scheduleData = [
       {
-        'day': '月曜日',
-        'emoji': '🇬🇧',
-        'subject': '英語',
-        'content': '文法と単語 1時間\nリスニング 30分\n読解 30分',
+        'time': '05:40 – 06:00',
+        'emoji': '🌅',
+        'activity': 'Wake up + Wudu + Fajr prayer',
       },
       {
-        'day': '火曜日',
+        'time': '06:00 – 06:30',
         'emoji': '🇯🇵',
-        'subject': '日本語',
-        'content': 'ひらがな・カタカナ・漢字 1時間\n聞き取り 30分\n文法と会話練習 1時間',
+        'activity': 'Japanese study (Anki + light grammar)',
       },
       {
-        'day': '水曜日',
-        'emoji': '💻',
-        'subject': 'プログラミング',
-        'content': '基本の勉強 1時間\nコーディングプロジェクト 1時間\nチュートリアル 30分',
+        'time': '06:30 – 07:00',
+        'emoji': '🍳',
+        'activity': 'Breakfast + Shower',
       },
       {
-        'day': '木曜日',
+        'time': '07:00 – 07:45',
         'emoji': '📚',
-        'subject': '学校の科目',
-        'content': '宿題と復習 2時間\nアクティブな勉強',
+        'activity': 'TKA study (Math / Language, alternate daily)',
       },
       {
-        'day': '金曜日',
-        'emoji': '🔁',
-        'subject': 'レビュー',
-        'content': '今週の復習 1時間\nフラッシュカード 1時間\n自由時間 30分',
+        'time': '07:45 – 08:20',
+        'emoji': '🤲',
+        'activity': 'Dhuha prayer + Get ready',
       },
       {
-        'day': '土曜日',
-        'emoji': '⚙️',
-        'subject': 'スキルミックス',
-        'content': '午前: 日本語 1時間\n午後: 英語 1時間\n夕方: コーディング 1時間',
+        'time': '08:20 – 09:00',
+        'emoji': '🚗',
+        'activity': 'Commute to office',
       },
       {
-        'day': '日曜日',
+        'time': '09:00 – 16:15',
+        'emoji': '💻',
+        'activity': 'Internship (Coding with Flutter)',
+      },
+      {
+        'time': '16:15 – 16:50',
+        'emoji': '🏠',
+        'activity': 'Commute back home',
+      },
+      {
+        'time': '16:50 – 17:20',
+        'emoji': '🤲',
+        'activity': 'Asr prayer + Snack / short break',
+      },
+      {
+        'time': '17:20 – 18:20',
+        'emoji': '📖',
+        'activity': 'Study Golang or TKA (alternate every day)',
+      },
+      {
+        'time': '18:20 – 18:30',
+        'emoji': '🤲',
+        'activity': 'Wudu + Maghrib prayer',
+      },
+      {
+        'time': '18:30 – 19:40',
+        'emoji': '🏋',
+        'activity': 'Gym session (except on Thursdays)',
+      },
+      {
+        'time': '19:40 – 20:00',
+        'emoji': '🍽️',
+        'activity': 'Dinner + Isha prayer',
+      },
+      {
+        'time': '20:00 – 21:00',
+        'emoji': '📝',
+        'activity': 'Study TKA English / Indonesian',
+      },
+      {
+        'time': '21:00 – 21:30',
+        'emoji': '🇯🇵',
+        'activity': 'Japanese (listening or flashcard review)',
+      },
+      {
+        'time': '21:30 – 22:00',
         'emoji': '😌',
-        'subject': '休み / フリー',
-        'content': 'オプションの復習\n自由時間',
+        'activity': 'Chill / Reflect / Daily review',
+      },
+      {
+        'time': '22:00 – 22:45',
+        'emoji': '😴',
+        'activity': 'Wudu + Witr prayer + Sleep',
       },
     ];
 
@@ -818,21 +985,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
           child: Row(
             children: [
               Expanded(
-                flex: 2,
-                child: Text(
-                  '曜日',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Color(0xFFd2604f),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Expanded(
                 flex: 3,
                 child: Text(
-                  'メインの勉強',
+                  'Waktu',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -842,9 +997,21 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
                 ),
               ),
               Expanded(
-                flex: 4,
+                flex: 1,
                 child: Text(
-                  '勉強の内容',
+                  '',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Color(0xFFd2604f),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Text(
+                  'Aktivitas',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -861,10 +1028,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
         ...scheduleData
             .map(
               (data) => _buildScheduleRow(
-                data['day']!,
+                data['time']!,
                 data['emoji']!,
-                data['subject']!,
-                data['content']!,
+                data['activity']!,
               ),
             ),
       ],
@@ -872,10 +1038,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
   }
 
   Widget _buildScheduleRow(
-    String day,
+    String time,
     String emoji,
-    String subject,
-    String content,
+    String activity,
   ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
@@ -886,48 +1051,216 @@ class _PomodoroScreenState extends State<PomodoroScreen> with TickerProviderStat
         border: Border.all(color: Colors.grey[300]!),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Text(
-              day,
+              time,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 12,
+                fontSize: 11,
                 color: Colors.black87,
               ),
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
-            flex: 3,
-            child: Column(
-              children: [
-                Text(emoji, style: const TextStyle(fontSize: 16)),
-                const SizedBox(height: 4),
-                Text(
-                  subject,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12,
-                    color: Colors.black87,
+            flex: 1,
+            child: Text(
+              emoji,
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Text(
+              activity,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black87,
+                height: 1.3,
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNoGymSchedule() {
+    final noGymSchedule = [
+      ['18:30 – 19:30', '📚', 'Deep focus on Golang or TKA'],
+      ['20:00 – 21:30', '🇯🇵', 'Japanese + English deep session'],
+    ];
+
+    return Column(
+      children: [
+        // Header
+        Container(
+           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+           decoration: BoxDecoration(
+             color: Colors.orange[100],
+             borderRadius: BorderRadius.circular(8),
+           ),
+           child: Row(
+             children: [
+               Expanded(
+                 flex: 2,
+                 child: Text(
+                   'Waktu',
+                   style: TextStyle(
+                     fontSize: 14,
+                     fontWeight: FontWeight.bold,
+                     color: Colors.orange[800],
+                   ),
+                 ),
+               ),
+               Expanded(
+                 flex: 1,
+                 child: Text(
+                   '',
+                   style: TextStyle(
+                     fontSize: 14,
+                     fontWeight: FontWeight.bold,
+                     color: Colors.orange[800],
+                   ),
+                   textAlign: TextAlign.center,
+                 ),
+               ),
+               Expanded(
+                 flex: 4,
+                 child: Text(
+                   'Aktivitas',
+                   style: TextStyle(
+                     fontSize: 14,
+                     fontWeight: FontWeight.bold,
+                     color: Colors.orange[800],
+                   ),
+                 ),
+               ),
+             ],
+           ),
+         ),
+        const SizedBox(height: 8),
+        // Schedule rows
+        ...noGymSchedule.map((schedule) => _buildScheduleRow(
+          schedule[0],
+          schedule[1],
+          schedule[2],
+        )).toList(),
+      ],
+    );
+  }
+
+  Widget _buildWeekendSchedule() {
+    return Column(
+      children: [
+        // Saturday
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.green[100],
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.green[300]!),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.calendar_today, color: Colors.green[700], size: 18),
+                  const SizedBox(width: 8),
+                  Text(
+                    '🎯 Saturday',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green[800],
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                ],
+              ),
+              const SizedBox(height: 12),
+              _buildWeekendRow('Morning', '📚', 'TKA (Math) + Japanese'),
+              _buildWeekendRow('Afternoon', '🏀', 'Basketball / Free time'),
+              _buildWeekendRow('Evening', '🇬🇧', 'English / Indonesian TKA'),
+              _buildWeekendRow('Night', '💻', 'Flutter mini project / Weekly review'),
+            ],
+          ),
+        ),
+        // Sunday
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.green[100],
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.green[300]!),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.calendar_today, color: Colors.green[700], size: 18),
+                  const SizedBox(width: 8),
+                  Text(
+                    '🎯 Sunday',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green[800],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _buildWeekendRow('Morning', '🐹', 'Golang practice / Personal project'),
+              _buildWeekendRow('Afternoon', '🏀', 'Basketball / Chill time'),
+              _buildWeekendRow('Evening', '🎧', 'Japanese listening practice'),
+              _buildWeekendRow('Night', '📝', 'Review & Weekly reflection'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWeekendRow(String time, String emoji, String activity) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Text(
+              time,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.green[700],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              emoji,
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
             ),
           ),
           Expanded(
             flex: 4,
             child: Text(
-              content,
-              style: const TextStyle(
-                fontSize: 11,
-                color: Colors.black54,
-                height: 1.3,
+              activity,
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey[800],
               ),
-              textAlign: TextAlign.left,
             ),
           ),
         ],
